@@ -12,7 +12,7 @@ export default function Puissance4() {
   ]);
   const [game, setGame] = useState(false)
   const [player, setPlayer] = useState(false)
-  const choix = [["A"], ["B"], ["C"], ["D"], ["E"], ["F"], ["G"]];
+  const choix = [1, 2, 3, 4, 5, 6, 7];
 
 
 useEffect(() => {
@@ -21,35 +21,30 @@ useEffect(() => {
     const joueur1 = 'X';
     const joueur2 = 'O';
     console.log(1,'test')
-   } else{ return
+    setGame(true)
+   } else{ 
+    return
    }
-   setGame(true)
    console.log(2,'test')
 }, [game]);
 
-// function Tour(){
 
-// setPlayer(Math.abs(player-1))
-
-// }
-
-
-const handleClick = (index, num) => {
-
-// Tour()
-};
+    
 
 
 
 
+const handleClick = (ind) => {
+  const tempTab = [...tab]
+  console.log(ind)
+  console.log(2, tempTab[5][ind])
 
+    tempTab[5][ind] = 'O';
+    
+    setTab([...tempTab])
 
-
-
-
-
-
-
+  
+  }
 
   return (
     <>
@@ -65,7 +60,7 @@ const handleClick = (index, num) => {
                   color: "black",
                   width: "50px",
                 }}
-                onClick={handleClick(ind)}
+                onClick={() => handleClick(ind)}
               >
                 {lettre}
               </button>
@@ -83,7 +78,6 @@ const handleClick = (index, num) => {
                     border: "1px solid white",
                     color: "white",
                   }}
-                  onClick={handleClick(index, num)}
                 >
                   {colonne}
                 </button>
