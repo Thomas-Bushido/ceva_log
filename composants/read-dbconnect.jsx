@@ -5,22 +5,20 @@ export default function List() {
   const [list, setList] = useState([]);
 
   console.log("plop");
-  
 
   useEffect(() => {
     const fetchData = async () => {
-      await getData()
-    }
-    fetchData()
+      await getData();
+    };
+    fetchData();
   }, []);
 
   const getData = async () => {
-    console.log('Hello')
-    const response = await fetch('api/clients')
+    console.log("Hello");
+    const response = await fetch("api/clients");
     const data = await response.json();
-    console.log({data})
+    console.log({ data });
 
-    
     setList(data.res);
   };
 
@@ -29,30 +27,75 @@ export default function List() {
 
   // }, [list]);
 
-
   return (
     <>
-      <p>{list.map((element) => 
-       <li>{element.email}</li>)}</p>
-     
+      <div
+        style={{
+          backgroundColor: "white",
+          color: "black",
+          maxWidth: "70%",
+          display: "flex",
+          flexDirection: "column",
+          position:"absolute",
+          top:"100px",
+          left:"340px",
+          alignItems: "center",
+          // margin: "0 auto",
+          border: "5px solid #cd5c5c",
+          borderRadius: "20px"
+          
+        }}
+      >
+        <div style={{color:"blue", margin:"50px", fontSize: "40px"}}>
+        <h1>Liste des comptes clients</h1>
+        </div>
+        <div style={{display: "flex", justifyContent: "center", padding: "50px"
+        }}>
+        <div style={{padding: "18px"}}>
+          <h2 style={{padding:"5px", fontSize:"15px", border: "2px solid black", textAlign:"center"}}>Nom de la société: </h2>
+          <p>
+            {list.map((element) => (
+             <li>{element.name}</li>
+            ))}
+          </p>
+        </div>
+        <div style={{padding: "18px"}}>
+          <h2 style={{padding:"5px", fontSize:"15px", border: "2px solid black", textAlign:"center"}}>Adresse mail: </h2>
+          <p>
+            {list.map((element) => (
+              <li>{element.email}</li>
+            ))}
+          </p>
+        </div>
+        <div style={{padding: "18px"}}>
+          <h2 style={{padding:"5px", fontSize:"15px", border: "2px solid black", textAlign:"center"}}>Numéro de Siret: </h2>
+          <p>
+            {list.map((element) => (
+              <li>{element.siret}</li>
+            ))}
+          </p>
+        </div>
+        <div style={{padding: "18px"}}>
+          <h2 style={{padding:"5px", fontSize:"15px", border: "2px solid black", textAlign:"center"}}>Adresse de facturation: </h2>
+          <p>
+            {list.map((element) => (
+              <li>{element.invoiceAddress}</li>
+            ))}
+          </p>
+        </div>
+        <div style={{padding: "18px"}}>
+          <h2 style={{padding:"5px", fontSize:"15px", border: "2px solid black", textAlign:"center"}}>ID: </h2>
+          <p>
+            {list.map((element) => (
+              <li>{element._id}</li>
+            ))}
+          </p>
+        </div>
+        </div>
+      </div>
     </>
   );
 }
 
 //////////////////////////////////////////////////////////////////////////////
-//   const initialList = [
-//   { name: 'x', invAddress: '8 rue w', siret: '123456789', mailAddress: 'd@g.com'  },
-//   { name: 'y', invAddress: '10 rue s', siret: '123456789', mailAddress: 'q@m.com'  },
-//   { name: 'z', invAddress: '15 rue a', siret: '123456789', mailAddress: 'a@c.com'  },
-// ];
 
-//   return (
-//     <>
-//       <ul>
-//         {list.map(customer => (
-//           <li key={customer.name}>{customer.name}, {customer.invAddress}, {customer. siret}, {customer.mailAddress}</li>
-//         ))}
-//       </ul>
-//     </>
-//   );
-// }

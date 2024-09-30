@@ -1,0 +1,184 @@
+* {
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.maincontainer {
+  display: flex;
+  color: black;
+  position: absolute;
+  width: 90%;
+  margin-left:17%;
+}
+
+.container {
+  background-color: white;
+  margin-top: 50px;
+  color: "black";
+  width: 30%;
+  align-items: flex-start;
+  border: 5px solid #cd5c5c;
+  border-radius: 20px;
+  height: 100%;
+  
+}
+
+.fileList {
+  padding: 18px;
+  
+}
+
+.menu_list {
+  display: flex;
+  background-color: white;
+  color: black;
+  width: 80%;
+  
+  align-items: flex-start;
+ 
+  
+}
+.listTitle {
+  display: flex;
+  margin: 30px;
+  justify-content: center;
+  font-size: larger;
+}
+/* .visible {
+    display: inherit;
+    width: 100%;
+} */
+.hidden {
+  display: none;
+}
+.containerdetail {
+  margin-top: 50px;
+  width: 80%;
+  height: 100%;
+}
+
+
+div.menuList.visible {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  height: 100%;
+  border: 5px solid #cd5c5c;
+  border-radius: 10px;
+  color: black;
+  
+}
+.fileTitle {
+  display: flex;
+  margin: 30px;
+  justify-content: center;
+  background-color: white;
+  width: 100%;
+  color:black;
+  font-size:larger;
+  height: 15%;
+}
+
+.fileDetail {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.shipmentInfos {
+  background-color: white;
+  padding: 1px;
+  width: 40%;
+  
+}
+
+.recap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 18px;
+  border: 1px solid rgb(111, 167, 244);
+  color: rgb(32, 14, 187);
+  font-size:large;
+}
+
+.rates {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 18px;
+  border: 1px solid rgb(111, 167, 244);
+  color:rgb(32, 14, 187);
+  font-size:large;
+}
+.titleCosts {
+  color: black;
+  font-size:larger;
+  display: flex;
+  justify-content: center;
+}
+
+.infos {
+  padding-left: 18px;
+  padding-top: 5px;
+  
+}
+
+/* .shipDetails {
+background-color: aquamarine;
+} */
+
+
+
+.checklistContainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  background-color: white;
+  width: 80%;
+}
+
+.checklist {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #eacbcb;
+}
+.step {
+ 
+  border-bottom:0.5px solid rgb(111, 167, 244);
+  padding: 6px;
+}
+
+input {
+  background-color: #eacbcb;
+}
+
+.buttonChecklist {
+  display: flex;
+  justify-content: center;
+  font-size: larger;
+  min-width: 25%;
+  border-radius: 10px;
+  margin: 30px;
+  color: white;
+  background-color:  rgb(32, 14, 187);
+}
+
+.containersave {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  background-color: white;
+}
+.saveButton {
+  display: flex;
+  justify-content: center;
+  font-size: larger;
+  min-width: 40%;
+  border-radius: 10px;
+  margin: 30px;
+  color: white;
+  background-color:  rgb(32, 14, 187);
+}

@@ -10,46 +10,62 @@ export default function Puissance4() {
     ["_", "_", "_", "_", "_", "_", "_"],
     ["_", "_", "_", "_", "_", "_", "_"],
   ]);
+  const [player, setPlayer] = useState(0);
   const [game, setGame] = useState(false)
-  const [player, setPlayer] = useState(false)
-  const choix = [["A"], ["B"], ["C"], ["D"], ["E"], ["F"], ["G"]];
+  const choix = [1, 2, 3, 4, 5, 6, 7];
 
 
 useEffect(() => {
    if(!game){
-    const joueurs = ['joueur 1', 'joueur 2'];
-    const joueur1 = 'X';
-    const joueur2 = 'O';
+    const joueurs = ["joueur 1", "joueur 2"];
+    const random = Math.floor(Math.random() * joueurs.length);
     console.log(1,'test')
-   } else{ return
+    setPlayer(random);
+    setGame(true)
+   } else{ 
+    return
    }
-   setGame(true)
    console.log(2,'test')
 }, [game]);
 
-// function Tour(){
+useEffect(() => {
+  if (!player) {
+    console.log("le joueur 1 commence");
+    console.log(player);
+  } else {
+    console.log("le joueur 2 commence");
+    console.log(player);
+  }
+}, [player]);
 
-// setPlayer(Math.abs(player-1))
+const handleClick = (ind) => {
+  const tempTab = [...tab]
 
-// }
+  
+  
+
+  function Count(){
+    
+    let l = tempTab.length-1;
+
+    while (tempTab[l][ind] === 'O' || tempTab[l][ind] === 'X') {
+      l--;
+      
+    }
+    console.log(l)
+    return l;
+  }
+  const ligne_a_remplir = Count()
+ console.log(5, ligne_a_remplir)
+  
+    
+ tempTab[ligne_a_remplir][ind] = !player ? "X" : "O";
+ setPlayer(Math.abs(player - 1));
+ return setTab(tempTab);
 
 
-const handleClick = (index, num) => {
-
-// Tour()
-};
-
-
-
-
-
-
-
-
-
-
-
-
+  
+  }
 
   return (
     <>
@@ -65,7 +81,7 @@ const handleClick = (index, num) => {
                   color: "black",
                   width: "50px",
                 }}
-                onClick={handleClick(ind)}
+                onClick={() => handleClick(ind)}
               >
                 {lettre}
               </button>
@@ -73,8 +89,8 @@ const handleClick = (index, num) => {
           })}
         </div>
         <div style={{ width: "350px" }}>
-          {tab.map((ligne, index) => {
-            return ligne.map((colonne, num) => {
+          {tab.map((ligne) => {
+            return ligne.map((colonne) => {
               return (
                 <button
                   style={{
@@ -83,7 +99,6 @@ const handleClick = (index, num) => {
                     border: "1px solid white",
                     color: "white",
                   }}
-                  onClick={handleClick(index, num)}
                 >
                   {colonne}
                 </button>

@@ -19,41 +19,75 @@ export default function Morpion() {
     if (game) {
       return;
     } else {
+      const joueurs = ["joueur 1", "joueur 2"];
+      const random = Math.floor(Math.random() * joueurs.length);
+      setPlayer(random);
 
-    const joueurs = ["joueur 1", "joueur 2"];
-    const random = Math.floor(Math.random() * joueurs.length);
-    setPlayer(random);
-
-    setGame(true);
+      setGame(true);
     }
-  }, []);
+  }, [game]);
 
   useEffect(() => {
     if (!player) {
       console.log("le joueur 1 commence");
-      console.log(player);
+      
     } else {
       console.log("le joueur 2 commence");
-      console.log(player);
+      
     }
+
   }, [player]);
 
-  function handleClick(index, num) {
+  function handleClick(ligne, colonne) {
     const tempGameboard = [...gameBoard];
-
-    tempGameboard[index][num] = !player ? "X" : "O";
     setPlayer(Math.abs(player - 1));
-    return setGameboard(tempGameboard);
+    tempGameboard[ligne][colonne] = !player ? "X" : "O";
+
+    function Check() {
+      
+      let count1 = 0;
+      let count2 = 0;
+
+      for (let l = 0; l <= 2; l++) {
+        count1 = 0;
+        count2 = 0;
+        for (let c = 0; c <= 2; c++) {
+          // console.log({l}, {c});
+          // count1 = 0;
+          // count2 = 0;
+          if (tempGameboard[l][c] === "X") {
+            count1++;
+            // console.log("ok");
+            //  console.log({l},{c})
+          }
+          if (tempGameboard[l][c] === "O") {
+            count2++;
+            // console.log("ok");
+            //  console.log({l},{c})
+          }
+        }
+        console.log(count1)
+      }
+      if (count1 === 3 || count2 === 3) {
+        console.log("gagné,fin de la partie");
+      } else {
+        return setGameboard(tempGameboard)
+      }
+    }
+    Check();
+
+    
+    // return setGameboard(tempGameboard);
   }
 
   return (
     <>
       <div>
         <div>
-          {gameBoard.map((ligne, index) => {
+          {gameBoard.map((line, ligne) => {
             return (
               <div>
-                {ligne.map((val, num) => {
+                {line.map((val, colonne) => {
                   return (
                     <button
                       style={{
@@ -62,7 +96,7 @@ export default function Morpion() {
                         border: "1px solid white",
                         color: "white",
                       }}
-                      onClick={() => handleClick(index, num)}
+                      onClick={() => handleClick(ligne, colonne)}
                     >
                       {val}
                     </button>
@@ -71,23 +105,8 @@ export default function Morpion() {
               </div>
             );
           })}
-          {/* {gameBoard[0].map((val, index) => {
-            return (
-              <button
-                style={{
-                  backgroundColor: "grey",
-                  minWidth: "20px",
-                  border: "1px solid black",
-                  color: "black",
-                }}
-                onClick={handleSubmit}
-              >
-                {val}
-              </button>
-            );
-          })} */}
         </div>
-        <div>{!player? "Au tour du joueur 1" : "Au tour du joueur 2"}</div>
+        <div>{!player ? "Au tour du joueur 1" : "Au tour du joueur 2"}</div>
       </div>
     </>
   );
