@@ -1,0 +1,123 @@
+.MainContainer {
+        display: flex;
+        margin: 0 auto;
+        background-color: white;
+        color: #00008b;
+        padding: 10px;
+        display: flex;
+        flex-direction: column; 
+        justify-content: center; 
+        align-items: center; 
+        min-height: 60vh;
+        border: 5px solid #cd5c5c;
+        border-radius: 20px;
+        width: 40vw;
+}
+
+.Container0 {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  
+}
+
+.Container1 {
+  display: flex;
+    flex-direction: column;
+    width:45%;
+    height: 100%;
+    color: #00008b;
+    align-items: center;
+    border: 3px solid #cd5c5c;
+    border-radius: 20px;
+
+}
+
+.ButtonTaxable{
+margin: 10px;
+ background-color:#cd5c5c;
+ color: white;
+ border-radius: 20px;
+}
+
+.ResultatTaxable{
+  font-size: x-large;
+  margin: 10px;
+}
+
+.Fassa {
+  display: flex;
+  flex-direction: column;
+  font-size: x-large;
+  align-items: center;
+  
+}
+
+.Container2 {
+  display: flex;
+    flex-direction: column;
+    width:45%;
+    align-items: center;
+    border: 3px solid #cd5c5c;
+    color:#00008b;
+    
+    border-radius: 20px;
+}
+
+
+
+.hidden {
+    display: none;
+  }
+
+  .visible {
+    display: block;
+    font-size: 18px;
+
+  }
+
+  .MainTitle {
+     padding: 10px;
+     font-size: larger;
+  }
+
+  .Title {
+    padding: 5px;
+    font-size: large;
+  }
+
+  .DimensionContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column
+  }
+
+  .FeesContainer {
+    padding: 10px;
+    
+  }
+
+  .SubmitContainer {
+    display: flex;
+    justify-content: center;
+  }
+ 
+  .ButtonSubmit {
+    display: flex;
+    justify-content: center;
+    
+  }
+  .DivSubmit {
+    margin: 20px;
+    padding: 20px; 
+    color: white;
+    background-color: #00008b;
+    border:3px solid black; 
+    border-radius:10px;
+  }
+  .button.button.visible {
+    
+    color: white;
+    width: 100%;
+    height: 50%;
+  }

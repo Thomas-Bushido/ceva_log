@@ -1,440 +1,512 @@
 "use client";
 
-
 import { useEffect, useState } from "react";
-
+import validateShipForm from "./validate-ship-form";
+import "../composants/style/add-shipment.css";
 
 export default function CreateShipment() {
-  const [customName, setCustomName] = useState("");
+  const [typeFile, setTTypeFile] = useState("");
+  const [customerName, setCustomerName] = useState("");
   const [departure, setDeparture] = useState("");
   const [arrival, setArrival] = useState("");
   const [nature, setNature] = useState("");
-  const [weight, setWeight] = useState("");
-  const [length, setLength] = useState("");
-  const [width, setWidth] = useState("");
-  const [height, setHeight] = useState("");
-  const [freightRate, setFreightRate] = useState("");
-  const [pickup, setPickup] = useState("");
-  const [handling, setHandling] = useState("");
-  const [secu, setSecu] = useState("");
-  const [incoterm,setIncoterm] = useState("");
-  const [customClearance,setCustomClearance] = useState("");
-  const [agentRate, setAgentRate] = useState ("");
+  const [grossWeight, setGrossWeight] = useState(0);
+  const [weight, setWeight] = useState(0);
+  const [length, setLength] = useState(0);
+  const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
+  const [freightRate, setFreightRate] = useState(0);
+  const [totalFreightCost, setTotalFreightCost] = useState(0);
+  const [pickup, setPickup] = useState(0);
+  const [handling, setHandling] = useState(0);
+  const [secu, setSecu] = useState(0);
+  const [incoterm, setIncoterm] = useState("");
+  const [customClearance, setCustomClearance] = useState(0);
+  const [agentRate, setAgentRate] = useState(0);
   const [flagSubmit, setFlagSubmit] = useState(false);
+  const [fassa, setFassa] = useState(0);
   const [result, setResult] = useState("");
-  const [fassa, setFassa] = useState("");
-  const [vente, setVente] = useState("");
+  const [vente, setVente] = useState(0);
+  const [note, setNote] = useState("");
+  const [buttonIsClicked, setButtonIsClicked] = useState("button hidden");
+  const [ButtonSubmit, setButtonSubmit] = useState("button visible");
+  const [buttonYes, setButtonYes] = useState("button hidden");
+  const [buttonNo, setButtonNo] = useState("button hidden");
 
-  const validateForm = () => {
-    if (customName.length > 1) {
-        console.log(" Name ok");
-      } else {
-        console.log("Name error");
-        setFlagSubmit(false);
-        return;
-      }
-      if (incoterm.length > 1 && incoterm.length <=3) {
-        console.log(" incoterm ok");
-      } else {
-        console.log("incoterm error");
-        setFlagSubmit(false);
-        return;
-      }
-    if (departure.length > 0){
-        console.log("departure ok");
+  const TaxableWeigth = () => {
+    const calculTax = (length * width * height) / 6000;
+    if (grossWeight > calculTax) {
+      setWeight(Number(grossWeight.toFixed(1)));  // Convertir en nombre après toFixed()
     } else {
-      console.log("departure error");
-      setFlagSubmit(false);
-      return;
+      setWeight(Number(calculTax.toFixed(1)));
     }
-    if (arrival.length > 0){
-        console.log("arrival ok");
-    } else {
-      console.log(" arrival error");
-      setFlagSubmit(false);
-      return;
-    }
-    if (nature.length > 0){
-        console.log("nature ok");
-    } else {
-      console.log("nature error");
-      setFlagSubmit(false);
-      return;
-    }
-    if (weight.length > 0){
-        console.log("weight ok");
-    } else {
-      console.log("weight error");
-      setFlagSubmit(false);
-      return;
-    }
-    if (length.length > 0){
-        console.log("length ok");
-    } else {
-      console.log("length error");
-      setFlagSubmit(false);
-      return;
-    }
-    if (width.length > 0){
-        console.log("width ok");
-    } else {
-      console.log("width error");
-      setFlagSubmit(false);
-      return;
-    }
-    if (height.length > 0){
-        console.log("height ok");
-    } else {
-      console.log("height error");
-      setFlagSubmit(false);
-      return;
-    }
-    if (pickup.length > 0){
-        console.log("pickup ok");
-    } else {
-      console.log("pickup error");
-      setFlagSubmit(false);
-      return;
-    }
-    if (pickup.length > 0){
-        console.log("pickup ok");
-    } else {
-      console.log("pickup error");
-      setFlagSubmit(false);
-      return;
-    }
-    if (customClearance.length > 0){
-        console.log("Cutoms ok");
-    } else {
-      console.log("Customs error");
-      setFlagSubmit(false);
-      return;
-    }
-    if (handling.length > 0){
-        console.log("Handling ok");
-    } else {
-      console.log("Handling error");
-      setFlagSubmit(false);
-      return;
-    }
-    if (secu.length > 0){
-        console.log("Securization ok");
-    } else {
-      console.log("Securization error");
-      setFlagSubmit(false);
-      return;
-    }
-    if (freightRate.length > 0){
-        console.log("air freight rate ok");
-    } else {
-      console.log("air freight rate error");
-      setFlagSubmit(false);
-      return;
-    }
-    if (incoterm === 'DAP' || incoterm === 'DDP'){
-        if(agentRate.length > 0){
-            console.log("agent freight ok");
-        } else {
-            console.log("agent rate error");
-            setFlagSubmit(false);
-        }
-    } else {
-      console.log("agent freight ok");
-      setFlagSubmit(true);
-      return;
-    }
-    if(fassa.length > 0){
-        console.log("fassa ok")
-    } else {
-        console.log("fassa error")
-    }
-    if (vente.length > 0){
-      console.log("Sell price ok");
-  } else {
-    console.log("Sell price error");
-    setFlagSubmit(false);
-    return;
-  }
-    setFlagSubmit(true);
-    };
+  };
 
-    const handleSubmit = async (event) => {
-        console.log("success");
-        await postData();
-      };
-      const postData = async () => {
-        console.log(
-          JSON.stringify({
-            name: customName,
-            incoterm: incoterm,
-            departure : departure,
-            arrival: arrival,
-            nature: nature,
-            weight: weight,
-            length: length,
-            width: width,
-            height: height,
-            freightRate: freightRate,
-            pickup: pickup,
-            handling: handling,
-            secu: secu,
-            incoterm: incoterm,
-            customClearance: customClearance,
-            agentRate: agentRate,
-            vente: vente,
-            fassa: fassa,
-             
+  const CostFreightCalculation = () => {
+    const freightcost = freightRate * weight;
+    setTotalFreightCost(Number(freightcost.toFixed(1)));  // Convertir en nombre après toFixed()
+  };
+  
+  const FassaCalculation = () => {
+    const totalCosts = 
+      (parseFloat(pickup) || 0) +
+      (parseFloat(customClearance) || 0) +
+      (parseFloat(handling) || 0) +
+      (parseFloat(secu) || 0) +
+      (parseFloat(totalFreightCost) || 0) +
+      (parseFloat(agentRate) || 0);
+    
+    const totalFassa = (parseFloat(vente) || 0) - totalCosts;
+    setFassa(Number(totalFassa.toFixed(1)));  // Convertir en nombre après toFixed()
+  };
 
-          })
-        );
-        const response = await fetch("api/expeditions", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                name: customName,
-                incoterm: incoterm,
-                departure : departure,
-                arrival: arrival,
-                nature: nature,
-                weight: weight,
-                length: length,
-                width: width,
-                height: height,
-                freightRate: freightRate,
-                pickup: pickup,
-                handling: handling,
-                secu: secu,
-                incoterm: incoterm,
-                customClearance: customClearance,
-                agentRate: agentRate,
-                vente: vente,
-                fassa: fassa,
-            }),
-          });
-          const result = await response.json();
+  const handleValidation = (e) => {
+    setButtonIsClicked("button visible");
+    setButtonSubmit("button hidden");
+    setButtonYes("button visible");
+    setButtonNo("button visible");
+  };
+
+  const handleReset = (e) => {
+    console.log("test");
+    setButtonIsClicked("button hidden");
+    setButtonSubmit("button visible");
+    setButtonYes("button hidden");
+    setButtonNo("button hidden");
+  };
+
+  const handleSubmit = async (event) => {
+    console.log("success");
+    setTTypeFile("");
+    setCustomerName("");
+    setDeparture("");
+    setArrival("");
+    setNature("");
+    setGrossWeight(0);
+    setWeight(0);
+    setLength(0);
+    setWidth(0);
+    setHeight(0);
+    setFreightRate(0);
+    setTotalFreightCost(0);
+    setPickup(0);
+    setHandling(0);
+    setSecu(0);
+    setIncoterm("");
+    setCustomClearance(0);
+    setAgentRate(0);
+    setFlagSubmit("");
+    setResult("");
+    setFassa(0);
+    setVente(0);
+    setNote("");
+    await postData();
+  };
+  const postData = async () => {
+    console.log(
+      JSON.stringify({
+        typeFile: typeFile,
+        customerName: customerName,
+        incoterm: incoterm,
+        departure: departure,
+        arrival: arrival,
+        nature: nature,
+        grossWeight: grossWeight,
+        weight: weight,
+        length: length,
+        width: width,
+        height: height,
+        freightRate: freightRate,
+        totalFreightCost: totalFreightCost,
+        pickup: pickup,
+        handling: handling,
+        secu: secu,
+        incoterm: incoterm,
+        customClearance: customClearance,
+        agentRate: agentRate,
+        vente: vente,
+        note: note,
+        fassa: fassa,
+      })
+    );
+    const response = await fetch("/api/expeditions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        typeFile: typeFile,
+        customerName: customerName,
+        incoterm: incoterm,
+        departure: departure,
+        arrival: arrival,
+        nature: nature,
+        grossWeight: grossWeight,
+        weight: weight,
+        length: length,
+        width: width,
+        height: height,
+        freightRate: freightRate,
+        totalFreightCost: totalFreightCost,
+        pickup: pickup,
+        handling: handling,
+        secu: secu,
+        incoterm: incoterm,
+        customClearance: customClearance,
+        agentRate: agentRate,
+        vente: vente,
+        note: note,
+        fassa: fassa,
+      }),
+    });
+    const result = await response.json();
     setResult(result.res);
     // récupération de la réponse envoyée depuis le back: return Response.json({ res: myPost.acknowledged ? "Done" : "Error" })
     console.log(result);
   };
-    
 
-    useEffect(() => {
-        validateForm(customName, departure, arrival, nature, weight,length, width, height, freightRate, pickup, handling, secu,incoterm, customClearance, agentRate, flagSubmit, result, vente, fassa);
-      }, [customName, departure, arrival, nature, weight,length, width, height, freightRate, pickup, handling, secu,incoterm, customClearance, agentRate, flagSubmit, result, vente, fassa]);
-    
-      useEffect(() => {
-        console.log("test");
-      
-        if (flagSubmit) {
-    
-        } else {
-          setFlagSubmit(false);
-        }
-      }, [flagSubmit]);
-
+  useEffect(() => {
+    setFlagSubmit(
+      validateShipForm(
+        typeFile,
+        customerName,
+        departure,
+        arrival,
+        nature,
+        grossWeight,
+        length,
+        width,
+        height,
+        freightRate,
+        pickup,
+        handling,
+        secu,
+        incoterm,
+        customClearance,
+        agentRate,
+        flagSubmit,
+        result,
+        vente,
+        fassa
+      )
+    );
+  }, [
+    typeFile,
+    customerName,
+    departure,
+    arrival,
+    nature,
+    grossWeight,
+    length,
+    width,
+    height,
+    freightRate,
+    pickup,
+    handling,
+    secu,
+    incoterm,
+    customClearance,
+    agentRate,
+    flagSubmit,
+    result,
+    vente,
+    fassa,
+  ]);
 
   return (
-    <div
-      style={{
-        backgroundColor: "white",
-        color: "#00008b",
-        padding: "10px",
-        display: "flex",
-        flexDirection: "column", 
-        justifyContent: "center", 
-        position:"absolute",
-        top:"100px",
-        left:"730px",
-        alignItems: "center", 
-        minHeight: "60vh",
-        border: "5px solid #cd5c5c",
-        borderRadius: "20px",
-        width: "400px",
-      }}
-    >
-      <h1>Create new shipment</h1>
-      <div style={{ padding: "5px" }}>
-        <label>Customer's name:</label>
-      </div>
-      <div style={{ paddingBottom: "18px" }}>
-        <input
-          style={{border: "1px solid black"}}
-          type="text"
-          placeholder="Customer's Name"
-          value={customName}
-          onChange={(e) => setCustomName(e.target.value)}
-        />
-      </div>
-      <div style={{ padding: "5px" }}>
-      <label>Incoterm:</label>
-      </div>
-      <div style={{ paddingBottom: "18px" }}>
-        <input
-          style={{border: "1px solid black"}}
-          type="text"
-          placeholder="Terms code for this shipment"
-          value={incoterm}
-          onChange={(e) => setIncoterm(e.target.value)}
-        />
-      </div>
-      <div style={{ padding: "5px" }}>
-        <label>Departure:</label>
-      </div>
-      <div style={{ paddingBottom: "18px" }}>
-        <input
-          style={{border: "1px solid black"}}
-          type="text"
-          placeholder="Airport of Departure"
-          value={departure}
-          onChange={(e) => setDeparture(e.target.value)}
-        />
-      </div>
-      <div style={{ padding: "5px" }}>
-        <label>Arrival:</label>
-      </div>
-      <div style={{ paddingBottom: "18px" }}>
-        <input
-          style={{border: "1px solid black"}}
-          type="text"
-          placeholder="Airport of Arrival"
-          value={arrival}
-          onChange={(e) => setArrival(e.target.value)}
-        />
-      </div>
-      <div style={{ padding: "5px" }}>
-        <label>Nature of the shipment:</label>
-      </div>
-      <div style={{ paddingBottom: "18px" }}>
-        <input
-          style={{border: "1px solid black"}}
-          type="text"
-          placeholder="Nature of the shipment"
-          value={nature}
-          onChange={(e) => setNature(e.target.value)}
-        />
-      </div>
-      <div style={{ padding: "5px" }}>
-        <label>Dimensions:</label>
-      </div>
-      <div style={{ paddingBottom: "30px" }}>
-        <input
-          style={{border: "1px solid black"}}
-          type="number"
-          placeholder="gross weight in kgs"
-          value={weight}
-          onChange={(e) => setWeight(e.target.value)}
-        />
-        <input
-          style={{border: "1px solid black"}}
-          type="number"
-          placeholder="Length of the packet in cm"
-          value={length}
-          onChange={(e) => setLength(e.target.value)}
-        />
+    <div className="MainContainer">
+      <h1 className="MainTitle">Nouvelle mise en place</h1>
+      <div className="Container0">
+        <div className="Container1">
+          <div className="Title">
+            <label>Information sur l'expédition</label>
+          </div>
+          <div className="FeesContainer">
+            <label>type de dossier:</label>
+          </div>
+          <div style={{ paddingBottom: "18px" }}>
+            <select
+              onChange={(e) => setTTypeFile(e.target.value)}
+            >
+              <option value="">Sélectionnez un type</option>
+              <option
+                style={{ border: "1px solid black" }}
+                type="text"
+                placeholder="File's type"
+              >
+                Export
+              </option>
+              <option
+                style={{ border: "1px solid black" }}
+                type="text"
+                placeholder="File's type"
+              >
+                Import
+              </option>
+              <option
+                style={{ border: "1px solid black" }}
+                type="text"
+                placeholder="File's type"
+              >
+                Crosstrade
+              </option>
+              <option
+                style={{ border: "1px solid black" }}
+                type="text"
+                placeholder="File's type"
+              >
+                Douane
+              </option>
+              <option
+                style={{ border: "1px solid black" }}
+                type="text"
+                placeholder="File's type"
+              >
+                Route
+              </option>
+            </select>
+          </div>
+          <div className="FeesContainer">
+            <label>Nom du client:</label>
+          </div>
+          <div style={{ paddingBottom: "18px" }}>
+            <input
+              style={{ border: "1px solid black" }}
+              type="text"
+              placeholder="Customer's Name"
+              value={customerName}
+              onChange={(e) => setCustomerName(e.target.value)}
+            />
+          </div>
+          <div className="FeesContainer">
+            <label>Incoterm:</label>
+          </div>
+          <div style={{ paddingBottom: "18px" }}>
+            <input
+              style={{ border: "1px solid black" }}
+              type="text"
+              placeholder="Terms code for this shipment"
+              value={incoterm}
+              onChange={(e) => setIncoterm(e.target.value)}
+            />
+          </div>
+          <div className="FeesContainer">
+            <label>Aéroport de départ:</label>
+          </div>
+          <div style={{ paddingBottom: "18px" }}>
+            <input
+              style={{ border: "1px solid black" }}
+              type="text"
+              placeholder="Airport of Departure"
+              value={departure}
+              onChange={(e) => setDeparture(e.target.value)}
+            />
+          </div>
+          <div className="FeesContainer">
+            <label>Aéroport d'arrivée:</label>
+          </div>
+          <div style={{ paddingBottom: "18px" }}>
+            <input
+              style={{ border: "1px solid black" }}
+              type="text"
+              placeholder="Airport of Arrival"
+              value={arrival}
+              onChange={(e) => setArrival(e.target.value)}
+            />
+          </div>
+          <div className="FeesContainer">
+            <label>Nature de marchandise:</label>
+          </div>
+          <div style={{ paddingBottom: "18px" }}>
+            <input
+              style={{ border: "1px solid black" }}
+              type="text"
+              placeholder="Nature of the shipment"
+              value={nature}
+              onChange={(e) => setNature(e.target.value)}
+            />
+          </div>
+          <div className="FeesContainer">
+            <label>Dimensions:</label>
+          </div>
+          <div className="DimensionContainer" style={{ paddingBottom: "30px" }}>
+            <input
+              style={{ border: "1px solid black" }}
+              type="number"
+              placeholder="gross weight in kgs"
+              value={grossWeight}
+              onChange={(e) => setGrossWeight(parseFloat(e.target.value))}
+            />
+            <input
+              style={{ border: "1px solid black" }}
+              type="number"
+              placeholder="Length of the packet in cm"
+              value={length}
+              onChange={(e) => setLength(parseFloat(e.target.value))}
+            />
+            <input
+              style={{ border: "1px solid black" }}
+              type="number"
+              placeholder="Width of the packet in cm"
+              value={width}
+              onChange={(e) => setWidth(parseFloat(e.target.value))}
+            />
+            <input
+              style={{ border: "1px solid black" }}
+              type="number"
+              placeholder="Height of the packet in cm"
+              value={height}
+              onChange={(e) => setHeight(parseFloat(e.target.value))}
+            />
+            <button className="ButtonTaxable" onClick={TaxableWeigth}>
+              Valider
+            </button>
+            <div type="number" className="ResultatTaxable">
+              Poids taxable: {weight}kgs
+            </div>
+          </div>
+        </div>
+        <div className="Container2">
+          <div className="Title">
+            <label>Achats/Vente:</label>
+          </div>
+          <div className="FeesContainer">
+            <label>Enlèvement: </label>
+          </div>
           <input
-          style={{border: "1px solid black"}}
-          type="number"
-          placeholder="Width of the packet in cm"
-          value={width}
-          onChange={(e) => setWidth(e.target.value)}
-        />
-         <input
-          style={{border: "1px solid black"}}
-          type="number"
-          placeholder="Height of the packet in cm"
-          value={height}
-          onChange={(e) => setHeight(e.target.value)}
-        />
-        <div>Taxable weight in kgs: {weight>((length*width*height)/6000)? weight: ((length*width*height)/6000)}</div>
-      </div>
-      <div style={{ padding: "5px" }}>
-        <label>Fees:</label>
-      </div>
-      <div style={{ paddingBottom: "18px" }}>
-        <input
-          style={{border: "1px solid black"}}
-          type="number"
-          placeholder="Pick up fees"
-          value={pickup}
-          onChange={(e) => setPickup(e.target.value)}
-        />
-      </div>
-      <div style={{ paddingBottom: "18px" }}>
-        <input
-          style={{border: "1px solid black"}}
-          type="number"
-          placeholder="Customs Fees"
-          value={customClearance}
-          onChange={(e) => setCustomClearance(e.target.value)}
-        />
-      </div>
-      <div style={{ paddingBottom: "18px" }}>
-        <input
-          style={{border: "1px solid black"}}
-          type="number"
-          placeholder="Handling fees "
-          value={handling}
-          onChange={(e) => setHandling(e.target.value)}
-        />
-      </div>
-      <div style={{ paddingBottom: "18px" }}>
-        <input
-          style={{border: "1px solid black"}}
-          type="number"
-          placeholder="Securization fees "
-          value={secu}
-          onChange={(e) => setSecu(e.target.value)}
-        />
-      </div>
-      <div style={{ paddingBottom: "18px" }}>
-        <input
-          style={{border: "1px solid black"}}
-          type="number"
-          placeholder="Airfreight Rate"
-          value={freightRate}
-          onChange={(e) => setFreightRate(e.target.value)}
-        />
-      </div>
-      <div style={{ paddingBottom: "18px" }}>
-        <input
-          style={{border: "1px solid black"}}
-          type="number"
-          placeholder="Agent total price"
-          value={agentRate}
-          onChange={(e) => setAgentRate(e.target.value)}
-        />
-      </div>
-      <div style={{ paddingBottom: "18px" }}>
-        <input
-          style={{border: "1px solid black"}}
-          type="number"
-          placeholder="Sell price"
-          value={vente}
-          onChange={(e) => setVente(e.target.value)}
-        />
-      </div>
-      <div style={{ paddingBottom: "18px" }}>
-        <input
-          style={{border: "1px solid black"}}
-          type="number"
-          placeholder="fassa"
-          value={fassa}
-          onChange={(e) => setFassa(e.target.value)}
-        />
-      </div>
+            style={{ border: "1px solid black" }}
+            type="number"
+            placeholder="Pick up fees"
+            value={pickup}
+            onChange={(e) => setPickup(parseFloat(e.target.value))}
+          />
 
-         
-      <div style={{ padding: "20px", border:"3px solid black", borderRadius:"4px"}}>
-        {flagSubmit ? (
-          <button onClick={handleSubmit}>Submit</button>
-        ) : (
-          <button>Please fill the form</button>
-        )}
-        <p>{result}</p>
+          <div className="FeesContainer">
+            <label>Frais douane: </label>
+          </div>
+          <input
+            style={{ border: "1px solid black" }}
+            type="number"
+            placeholder="Customs Fees"
+            value={customClearance}
+            onChange={(e) => setCustomClearance(parseFloat(e.target.value))}
+          />
+
+          <div className="FeesContainer">
+            <label>Handling: </label>
+          </div>
+          <input
+            style={{ border: "1px solid black" }}
+            type="number"
+            placeholder="Handling fees "
+            value={handling}
+            onChange={(e) => setHandling(parseFloat(e.target.value))}
+          />
+
+          <div className="FeesContainer">
+            <label>Sécurisation: </label>
+          </div>
+          <input
+            style={{ border: "1px solid black" }}
+            type="number"
+            placeholder="Securization fees "
+            value={secu}
+            onChange={(e) => setSecu(parseFloat(e.target.value))}
+          />
+
+          <div className="FeesContainer">
+            <label>Taux aérien: </label>
+          </div>
+          <input
+            style={{ border: "1px solid black" }}
+            type="number"
+            placeholder="Airfreight Rate"
+            value={freightRate}
+            onChange={(e) => setFreightRate(parseFloat(e.target.value))}
+          />
+          <div>
+            <button
+              type="number"
+              className="ButtonTaxable"
+              onClick={CostFreightCalculation}
+            >
+              Calculer le cout du fret aérien{" "}
+            </button>
+            <div className="ResultatTaxable">{totalFreightCost} eur</div>
+          </div>
+          <div className="FeesContainer">
+            <label>Frais agent: </label>
+          </div>
+          <input
+            style={{ border: "1px solid black" }}
+            type="number"
+            placeholder="Agent total price"
+            value={agentRate}
+            onChange={(e) => setAgentRate(parseFloat(e.target.value))}
+          />
+
+          <div className="FeesContainer">
+            <label>Vente: </label>
+          </div>
+          <input
+            style={{ border: "1px solid black" }}
+            type="number"
+            placeholder="Sell price"
+            value={vente}
+            onChange={(e) => setVente(parseFloat(e.target.value))}
+          />
+          <div className="FeesContainer">
+            <label>Informations particulières: </label>
+          </div>
+          <input
+            style={{ border: "1px solid black" }}
+            type="text"
+            placeholder="Notes on shipment"
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+          />
+          <div className="FeesContainer">
+            <div className="Fassa">
+              <button
+                type="text"
+                className="ButtonTaxable"
+                onClick={FassaCalculation}
+              >
+                Calculer le Fassa
+              </button>
+              <div className="ResultatTaxable">
+                {fassa} eur
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="Container3">
+        <div className="DivSubmit">
+          {flagSubmit ? (
+            <div className="SubmitContainer">
+              <div>
+                <button className={ButtonSubmit} onClick={handleValidation}>
+                  Soumettre
+                </button>
+              </div>
+              <div className={buttonIsClicked}>
+                Confirmez-vous cette nouvelle mise en place?
+              </div>
+              <div>
+                <button className={buttonYes} onClick={handleSubmit}>
+                  Oui
+                </button>
+                <button className={buttonNo} onClick={handleReset}>
+                  Non
+                </button>
+              </div>
+            </div>
+          ) : (
+            <button>Please fill the form</button>
+          )}
+        </div>
       </div>
     </div>
   );
-
 }
