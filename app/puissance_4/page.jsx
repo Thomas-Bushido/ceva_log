@@ -63,6 +63,9 @@ const handleClick = (ind) => {
  setPlayer(Math.abs(player - 1));
  return setTab(tempTab);
 
+    tempTab[5][ind] = 'O';
+    
+    setTab([...tempTab])
 
   
   }
