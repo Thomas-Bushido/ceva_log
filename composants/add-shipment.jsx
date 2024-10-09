@@ -219,12 +219,12 @@ export default function CreateShipment() {
       <div className="Container0">
         <div className="Container1">
           <div className="Title">
-            <label>Information sur l'expédition</label>
+            <label>Expédition</label>
           </div>
           <div className="FeesContainer">
             <label>type de dossier:</label>
           </div>
-          <div style={{ paddingBottom: "18px" }}>
+          <div style={{ paddingBottom: "18px", display:"flex", justifyContent:"center" }}>
             <select
               onChange={(e) => setTTypeFile(e.target.value)}
             >
@@ -269,7 +269,7 @@ export default function CreateShipment() {
           <div className="FeesContainer">
             <label>Nom du client:</label>
           </div>
-          <div style={{ paddingBottom: "18px" }}>
+          <div style={{ paddingBottom: "18px", display:"flex", justifyContent:"center" }}>
             <input
               style={{ border: "1px solid black" }}
               type="text"
@@ -281,11 +281,11 @@ export default function CreateShipment() {
           <div className="FeesContainer">
             <label>Incoterm:</label>
           </div>
-          <div style={{ paddingBottom: "18px" }}>
+          <div style={{ paddingBottom: "18px", display:"flex", justifyContent:"center" }}>
             <input
               style={{ border: "1px solid black" }}
               type="text"
-              placeholder="Terms code for this shipment"
+              placeholder="Terms code"
               value={incoterm}
               onChange={(e) => setIncoterm(e.target.value)}
             />
@@ -293,7 +293,7 @@ export default function CreateShipment() {
           <div className="FeesContainer">
             <label>Aéroport de départ:</label>
           </div>
-          <div style={{ paddingBottom: "18px" }}>
+          <div style={{ paddingBottom: "18px", display:"flex", justifyContent:"center" }}>
             <input
               style={{ border: "1px solid black" }}
               type="text"
@@ -305,7 +305,7 @@ export default function CreateShipment() {
           <div className="FeesContainer">
             <label>Aéroport d'arrivée:</label>
           </div>
-          <div style={{ paddingBottom: "18px" }}>
+          <div style={{ paddingBottom: "18px", display:"flex", justifyContent:"center" }}>
             <input
               style={{ border: "1px solid black" }}
               type="text"
@@ -317,7 +317,7 @@ export default function CreateShipment() {
           <div className="FeesContainer">
             <label>Nature de marchandise:</label>
           </div>
-          <div style={{ paddingBottom: "18px" }}>
+          <div style={{ paddingBottom: "18px", display:"flex", justifyContent:"center" }}>
             <input
               style={{ border: "1px solid black" }}
               type="text"
@@ -329,7 +329,7 @@ export default function CreateShipment() {
           <div className="FeesContainer">
             <label>Dimensions:</label>
           </div>
-          <div className="DimensionContainer" style={{ paddingBottom: "30px" }}>
+          <div className="DimensionContainer" style={{ paddingBottom: "30px"}}>
             <input
               style={{ border: "1px solid black" }}
               type="number"
@@ -374,7 +374,7 @@ export default function CreateShipment() {
             <label>Enlèvement: </label>
           </div>
           <input
-            style={{ border: "1px solid black" }}
+            style={{ border: "1px solid black", width:"40%" }}
             type="number"
             placeholder="Pick up fees"
             value={pickup}
@@ -385,7 +385,7 @@ export default function CreateShipment() {
             <label>Frais douane: </label>
           </div>
           <input
-            style={{ border: "1px solid black" }}
+            style={{ border: "1px solid black", width:"40%" }}
             type="number"
             placeholder="Customs Fees"
             value={customClearance}
@@ -396,7 +396,7 @@ export default function CreateShipment() {
             <label>Handling: </label>
           </div>
           <input
-            style={{ border: "1px solid black" }}
+            style={{ border: "1px solid black", width:"40%" }}
             type="number"
             placeholder="Handling fees "
             value={handling}
@@ -407,7 +407,7 @@ export default function CreateShipment() {
             <label>Sécurisation: </label>
           </div>
           <input
-            style={{ border: "1px solid black" }}
+            style={{ border: "1px solid black", width:"40%" }}
             type="number"
             placeholder="Securization fees "
             value={secu}
@@ -418,7 +418,7 @@ export default function CreateShipment() {
             <label>Taux aérien: </label>
           </div>
           <input
-            style={{ border: "1px solid black" }}
+            style={{ border: "1px solid black", width:"40%" }}
             type="number"
             placeholder="Airfreight Rate"
             value={freightRate}
@@ -438,7 +438,7 @@ export default function CreateShipment() {
             <label>Frais agent: </label>
           </div>
           <input
-            style={{ border: "1px solid black" }}
+            style={{ border: "1px solid black", width:"40%" }}
             type="number"
             placeholder="Agent total price"
             value={agentRate}
@@ -449,7 +449,7 @@ export default function CreateShipment() {
             <label>Vente: </label>
           </div>
           <input
-            style={{ border: "1px solid black" }}
+            style={{ border: "1px solid black", width:"40%" }}
             type="number"
             placeholder="Sell price"
             value={vente}
