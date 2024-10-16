@@ -1,38 +1,59 @@
-* {
-  margin: 0 auto;
-  box-sizing: border-box;
-}
-
 .maincontainer {
   display: flex;
   color: black;
-  position: absolute;
-  width: 90%;
-  margin-left:17%;
+  margin: 0 auto;
+  max-width:80%;
+  
+
 }
 
+
 .container {
-  background-color: white;
+  display: flex;
+  background-color:white;
   margin-top: 50px;
-  color: "black";
   width: 30%;
-  align-items: flex-start;
+  align-items: center;
   border: 5px solid #cd5c5c;
   border-radius: 20px;
   height: 100%;
+  flex-direction: column;
+  
   
 }
 
+.List {
+  list-style-type: none;
+  border: 2px solid rgb(32, 14, 187);
+  background-color:  #cd5c5c;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.ChildList {
+  border: 1px solid white;
+  padding: 5px;
+}
+
 .fileList {
-  padding: 18px;
-  
+  display: flex;
+    padding: 18px;
+    align-content: flex-end;
+    align-items: center;
+    flex-direction: column-reverse;
+    
+    color: white;
+    margin-bottom: 10px;
+    width: 70%;
+    
+   
 }
 
 .menu_list {
   display: flex;
   background-color: white;
   color: black;
-  width: 80%;
+  width: 50%;
   
   align-items: flex-start;
  
@@ -42,7 +63,9 @@
   display: flex;
   margin: 30px;
   justify-content: center;
-  font-size: larger;
+  font-size:22px;
+  font-weight: bolder;
+
 }
 /* .visible {
     display: inherit;
@@ -53,7 +76,7 @@
 }
 .containerdetail {
   margin-top: 50px;
-  width: 80%;
+  width: 70%;
   height: 100%;
 }
 
@@ -61,7 +84,7 @@
 div.menuList.visible {
   display: flex;
   flex-direction: column;
-  width: 70%;
+  width: 75%;
   height: 100%;
   border: 5px solid #cd5c5c;
   border-radius: 10px;
@@ -70,27 +93,33 @@ div.menuList.visible {
 }
 .fileTitle {
   display: flex;
-  margin: 30px;
+  margin: 10px;
+  
+  flex-direction: column;
   justify-content: center;
   background-color: white;
   width: 100%;
   color:black;
   font-size:larger;
-  height: 15%;
+   
 }
 
 .fileDetail {
   display: flex;
-  width: 100%;
-  height: 100%;
+  /* width: 100%;
+  */
 }
 
 .shipmentInfos {
+  display: flex;
   background-color: white;
   padding: 1px;
-  width: 40%;
+  width: 50%;
+
   
 }
+
+
 
 .recap {
   display: flex;
@@ -107,6 +136,9 @@ div.menuList.visible {
   flex-direction: column;
   justify-content: center;
   margin: 18px;
+
+
+  
   border: 1px solid rgb(111, 167, 244);
   color:rgb(32, 14, 187);
   font-size:large;
@@ -116,6 +148,28 @@ div.menuList.visible {
   font-size:larger;
   display: flex;
   justify-content: center;
+}
+
+.labelsRecap {
+  display: flex;
+  flex-direction: row;
+  padding-top: 5px;
+ padding-left: 18px;
+  font-size: 18px;
+}
+
+.labelsCosts {
+  display: flex;
+  flex-direction: row;
+  padding-top: 5px;
+ padding-left: 18px;
+  font-size: 18px;
+}
+
+.labelDims {
+  padding-top: 5px;
+ padding-left: 18px;
+  font-size: 18px;
 }
 
 .infos {
@@ -152,7 +206,7 @@ background-color: aquamarine;
 }
 
 input {
-  background-color: #eacbcb;
+  background-color: white;
 }
 
 .buttonChecklist {
@@ -181,4 +235,481 @@ input {
   margin: 30px;
   color: white;
   background-color:  rgb(32, 14, 187);
+}
+
+.detail-menu {
+  display: flex;
+  justify-content: center;
+  font-size: 15px;
+  min-width: 40%;
+  border-radius: 20px;
+  margin: 10px;
+  padding: 5px;
+  color: white;
+  background-color:  rgb(32, 14, 187);
+  border: 1.6px solid white;
+}
+
+@media screen and (max-width:1068px) {
+  .maincontainer {
+    color: #00008b;
+        display: flex;
+        max-width: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+}
+
+.fileList {
+ padding: 0%;
+ width: 100%;
+}
+
+.detail-menu {
+font-size: 8px;
+width: 75px;
+}
+
+li.List {
+  display: flex;
+  padding: 0%;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.listTitle {
+  padding: 6px;
+  font-size: 11px;
+  margin: 0px;
+
+}
+
+.ChildList {
+  font-size: 8px;
+  
+}
+
+#inputtext {
+  background-color: white;
+  
+}
+#inputnumber {
+  background-color: white;
+  width: 50%;
+}
+input {
+  width: 100%;
+}
+
+.containerdetail {
+  
+  width: 70%;
+  margin-top: 0px;
+}
+
+.checklistContainer {
+  width: 100%;
+  font-size: small;
+  font-size: 11px;
+}
+.fileDetail {
+  display: flex;
+  /* width: 100%; */
+  flex-direction: column;
+}
+.shipmentInfos {
+  width: 100%;
+  font-size: 11px;
+}
+
+.divShipment {
+  display: flex;
+  width: 100%;
+      font-size: 11px;
+      flex-direction: column;
+      align-items: center;
+}
+
+div.menuList.visible {
+  width: 100%;
+}
+
+.containerRatesRecap {
+  display: flex;
+  width: 100%;
+}
+.recap {
+  width:60%;
+  font-size: 11px;
+  margin: 0px;
+}
+
+.rates {
+  justify-content: flex-start;
+  width:60%;
+  font-size: 11px;
+  margin: 0px;
+}
+
+.titleCosts {
+  font-size: 11px;
+}
+
+.labelsCosts{
+  font-size: 11px;
+  padding-left: 0px;
+  padding-top: 0px;
+}
+
+.labelDims {
+  font-size: 11px;
+  padding-left: 0px;
+  padding-top: 0px;
+}
+
+.container {
+  display: flex;
+  justify-content: flex-start;
+  width: 30%;
+  margin-top: 0px;
+  
+}
+
+.step {
+
+  width: 100%;
+}
+.checklist {
+  width: 90%;
+  flex-direction: column;
+  justify-content: center;
+  
+  align-items: center;
+  
+}
+.fileTitle {
+  display: flex;
+  margin: 10px;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: white;
+  width: 99%;
+  color: black;
+  font-size: 11px;
+  flex-wrap: nowrap;
+  align-content: flex-end;
+  align-items: center;
+}
+
+}
+
+
+
+@media screen and (max-width:425px){
+  .maincontainer {
+    color: #00008b;
+        display: flex;
+        max-width: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+}
+
+.fileList {
+ padding: 0%;
+}
+
+.detail-menu {
+font-size: 8px;
+width: 75px;
+}
+
+li.List {
+  display: flex;
+  padding: 0%;
+  width: 93px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.listTitle {
+  padding: 6px;
+  font-size: 11px;
+  margin: 0px;
+
+}
+
+.ChildList {
+  font-size: 8px;
+  
+}
+
+#inputtext {
+  background-color: white;
+  
+}
+#inputnumber {
+  background-color: white;
+  width: 50%;
+}
+input {
+  width: 100%;
+}
+
+.containerdetail {
+  
+  width: 70%;
+  margin-top: 0px;
+}
+
+.checklistContainer {
+  width: 100%;
+  font-size: small;
+  font-size: 11px;
+}
+.fileDetail {
+  display: flex;
+  /* width: 100%; */
+  flex-direction: column;
+}
+.shipmentInfos {
+  width: 100%;
+  font-size: 11px;
+}
+
+.divShipment {
+  display: flex;
+      font-size: 11px;
+      flex-direction: column;
+      align-items: center;
+}
+
+div.menuList.visible {
+  width: 100%;
+}
+
+.containerRatesRecap {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+.recap {
+  width: 127px;
+  font-size: 11px;
+  margin: 0px;
+}
+
+.rates {
+  justify-content: flex-start;
+  width: 127px;
+  font-size: 11px;
+  margin: 0px;
+}
+
+.titleCosts {
+  font-size: 11px;
+}
+
+.labelsCosts{
+  font-size: 11px;
+  padding-left: 0px;
+  padding-top: 0px;
+}
+
+.labelDims {
+  font-size: 11px;
+  padding-left: 0px;
+  padding-top: 0px;
+}
+
+.container {
+  display: flex;
+  justify-content: flex-start;
+  width: 30%;
+  margin-top: 0px;
+  
+}
+
+.step {
+
+  width: 100%;
+}
+.checklist {
+  width: 90%;
+  flex-direction: column;
+  justify-content: center;
+  
+  align-items: center;
+  
+}
+.fileTitle {
+  display: flex;
+  margin: 10px;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: white;
+  width: 99%;
+  color: black;
+  font-size: 11px;
+  flex-wrap: nowrap;
+  align-content: flex-end;
+  align-items: center;
+}
+}
+
+
+
+   /* Pour les écrans moyens entre 376px et 425px */
+   @media screen and (max-width:375px){
+    .maincontainer {
+      margin: 0;
+      color: #00008b;
+      display: flex;
+      max-width: 100%;
+      flex-direction: row;
+  }
+  
+ .fileList {
+   padding: 0%;
+ }
+
+ .detail-menu {
+  font-size: 8px;
+  width: 75px;
+ }
+
+  li.List {
+    display: flex;
+    padding: 0%;
+    width: 93px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+  }
+
+  .listTitle {
+    padding: 6px;
+    font-size: 11px;
+    margin: 0px;
+  
+  }
+
+  .ChildList {
+    font-size: 8px;
+    
+  }
+
+  #inputtext {
+    background-color: white;
+    
+  }
+  #inputnumber {
+    background-color: white;
+    width: 50%;
+  }
+  input {
+    width: 100%;
+  }
+
+  .containerdetail {
+    
+    width: 265px;
+    margin-top: 0px;
+  }
+
+  .checklistContainer {
+    width: 100%;
+    font-size: small;
+    font-size: 11px;
+  }
+  .fileDetail {
+    display: flex;
+    /* width: 100%; */
+    flex-direction: column;
+  }
+  .shipmentInfos {
+    width: 256px;
+    font-size: 11px;
+  }
+
+  .divShipment {
+    display: flex;
+        font-size: 11px;
+        flex-direction: column;
+        align-items: center;
+  }
+
+  div.menuList.visible {
+    width: 265px;
+  }
+
+  .containerRatesRecap {
+    display: flex;
+  }
+  .recap {
+    width: 127px;
+    font-size: 11px;
+    margin: 0px;
+  }
+
+  .rates {
+    justify-content: flex-start;
+    width: 127px;
+    font-size: 11px;
+    margin: 0px;
+  }
+
+  .titleCosts {
+    font-size: 11px;
+  }
+
+  .labelsCosts{
+    font-size: 11px;
+    padding-left: 0px;
+    padding-top: 0px;
+  }
+
+  .labelDims {
+    font-size: 11px;
+    padding-left: 0px;
+    padding-top: 0px;
+  }
+
+  .container {
+    display: flex;
+    justify-content: flex-start;
+    width: 110px;
+    margin-top: 0px;
+    
+  }
+
+  .step {
+
+    width: 100%;
+  }
+  .checklist {
+    width: 90%;
+    flex-direction: column;
+    justify-content: center;
+    
+    align-items: center;
+    
+  }
+  .fileTitle {
+    display: flex;
+    margin: 10px;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: white;
+    width: 99%;
+    color: black;
+    font-size: 11px;
+    flex-wrap: nowrap;
+    align-content: flex-end;
+    align-items: center;
+  }
 }
