@@ -21,7 +21,7 @@ export default function ListShipments() {
   }, []);
 
   const getData = async () => {
-    const response = await fetch("api/expeditions/[id]");
+    const response = await fetch("api/expeditions");
     const data = await response.json();
     setList(data.res);
   };
@@ -36,6 +36,7 @@ export default function ListShipments() {
       setChecklists((prev) => ({
         ...prev,
         [id]: {
+          ExploitNumber: "",
           pickupDate: "",
           receptionDate: "",
           flightBooking: "",
@@ -69,24 +70,28 @@ export default function ListShipments() {
 
 
   return (
-    <>
+    <div className="backGround">
       <div className="maincontainer">
-        <div className="container">
+        <div className="container inlineContainer">
           <div className="listTitle">Liste des dossiers en cours</div>
           <div className="fileList">
             <div>
               {list.map((element) => (
-                <li key={element._id}>
-                  ID: {element._id}
+                <li className="List" key={element._id}>
+                  <p className="ChildList">Dossier Exploit' n°: ......<br /> Mise en place n°: {element.shipNumber}</p>
+                  <div>
                   <button
                     className="detail-menu"
                     onClick={() => updateMenu(element._id)}
                   >
                     Voir le détail
                   </button>
-                  <button>
+                  </div>
+                  <div>
+                  <button className="detail-menu">
                     Supprimer
                   </button>
+                  </div>
                 </li>
               ))}
             </div>
@@ -99,52 +104,46 @@ export default function ListShipments() {
                 {list
                   .filter((element) => element._id === selectedId)
                   .map((element) => (
-                    <div key={element._id}>
+                    <div key={element._id} className="divShipment">
                       <div className="fileTitle">
-                        <p>Numéro de dossier: {element._id}</p>
+                        Mise en place n°: {element.shipNumber}<br />
+                        Réf Exploit: 0N......
                       </div>
+                      <div className="containerRatesRecap">
                       <div className="recap">
                         <h1 className="titleCosts">Récap</h1>
-                        <div style={{ paddingTop: "5px", paddingLeft: "18px" }}>
+                        <div className="labelsCosts">
                           <label htmlFor="inputtext">Type de dossier:</label>
-                          <input id="inputtext" type="text" defaultValue={element.typeFile}/>
+                          <p id="inputtext" type="text" defaultValue={element.typeFile}>{element.typeFile}</p>
                         </div>
-                        <div style={{ paddingTop: "5px", paddingLeft: "18px" }}>
+                        <div className="labelsCosts">
                           <label htmlFor="inputtext">Client:</label>
-                          <input id="inputtext" type="text" defaultValue={element.customerName}/>
+                          <p id="inputtext" type="text" defaultValue={element.customerName}>{element.customerName}</p>
                         </div>
-                        <div style={{ paddingTop: "5px", paddingLeft: "18px" }}>
+                        <div className="labelsCosts">
                           <label htmlFor="inputtext">Incoterm:</label>
-                          <input id="inputtext" type="text" defaultValue={element.incoterm}/>
+                          <p id="inputtext" type="text" defaultValue={element.incoterm}>{element.incoterm}</p>
                         </div>
-                        <div style={{ paddingTop: "5px", paddingLeft: "18px" }}>
+                        <div className="labelsCosts">
                           <label htmlFor="inputtext">Départ:</label>
-                          <input id="inputtext" type="text" defaultValue={element.departure}/>
+                          <p id="inputtext" type="text" defaultValue={element.departure}>{element.departure}</p>
                         </div>
-                        <div style={{ paddingTop: "5px", paddingLeft: "18px" }}>
+                        <div className="labelsCosts">
                           <label htmlFor="inputtext">Arrivée:</label>
-                          <input id="inputtext" type="text" defaultValue={element.arrival}/>
+                          <p id="inputtext" type="text" defaultValue={element.arrival}>{element.arrival}</p>
                         </div>
-                        <div style={{ paddingTop: "5px", paddingLeft: "18px" }}>
+                        <div className="labelsCosts">
                           <label htmlFor="inputtext">Marchandise:</label>
-                          <input id="inputtext" type="text" defaultValue={element.nature}/>
+                          <p id="inputtext" type="text" defaultValue={element.nature}>{element.nature}</p>
                         </div>
-                        <div style={{ paddingTop: "5px", paddingLeft: "18px" }}>
+                        <div className="labelsCosts">
                           <label htmlFor="inputtext">Poids (en kgs):</label>
-                          <input id="inputtext" type="text" defaultValue={element.weight}/>
+                          <p id="inputtext" type="text" defaultValue={element.weight}>{element.weight}</p>
                         </div>
-                        <div style={{ paddingTop: "5px", paddingLeft: "18px" }}>
+                        <div className="labelDims">
                         <div>
-                          <label htmlFor="inputnumber">Longueur (en cm):</label>
-                          <input id="inputnumber" type="number" defaultValue={element.length}/>
-                        </div>
-                        <div>
-                          <label htmlFor="inputnumber">Largeur (en cm):</label>
-                          <input id="inputnumber" type="number" defaultValue={element.width}/>
-                        </div>
-                        <div>
-                          <label htmlFor="inputnumber">Hauteur (en cm):</label>
-                          <input id="inputnumber" type="number" defaultValue={element.height}/>
+                          <label htmlFor="inputnumber">dimension (en cm):</label>
+                          <p id="inputnumber" type="number">{element.length}*{element.width}*{element.height}</p>
                         </div>
                           <label htmlFor="inputnumber">Poids taxable:</label>
                               {element.weight <
@@ -163,41 +162,42 @@ export default function ListShipments() {
                       </div>
                       <div className="rates">
                         <h1 className="titleCosts">Achats/Ventes</h1>
-                        <div style={{ padding: "18px" }}>
+                        <div>
                           
-                          <div>
-                         <label htmlFor="inputnumber">Pick up:</label> 
-                         <input type="inputnumber" defaultValue={element.pickup}/> 
+                          <div className="labelsCosts">
+                         <label  htmlFor="inputnumber">Pick up:</label> 
+                         <p type="inputnumber" defaultValue={element.pickup}>{element.pickup}</p>
                           </div>
-                          <div>
-                         <label htmlFor="inputnumber">Handling:</label> 
-                         <input type="inputnumber" defaultValue={element.handling}/> 
+                          <div className="labelsCosts">
+                         <label  htmlFor="inputnumber">Handling:</label> 
+                         <p type="inputnumber" defaultValue={element.handling}>{element.handling}</p>
                           </div>
-                          <div>
-                         <label htmlFor="inputnumber">Sécurisation:</label> 
-                         <input type="inputnumber" defaultValue={element.secu}/> 
+                          <div className="labelsCosts">
+                         <label  htmlFor="inputnumber">Sécurisation:</label> 
+                         <p type="inputnumber" defaultValue={element.secu}>{element.secu}</p>
                           </div>
-                          <div>
-                         <label htmlFor="inputnumber">Dédouanement export:</label> 
-                         <input type="inputnumber" defaultValue={element.customClearance}/> 
+                          <div className="labelsCosts">
+                         <label  htmlFor="inputnumber">Douane export:</label> 
+                         <p type="inputnumber" defaultValue={element.customClearance}>{element.customClearance}</p>
                           </div>
-                          <div>
+                          <div className="labelsCosts">
                          <label htmlFor="inputnumber">Frais aériens:</label> 
-                         <input type="inputnumber" defaultValue={element.freightRate}/> 
+                         <p type="inputnumber" defaultValue={element.freightRate}>{element.freightRate}</p> 
                           </div>
-                          <div>
-                         <label htmlFor="inputnumber">Frais agent:</label> 
-                         <input type="inputnumber" defaultValue={element.agentRate}/> 
+                          <div className="labelsCosts">
+                         <label  htmlFor="inputnumber">Frais agent:</label> 
+                         <p type="inputnumber" defaultValue={element.agentRate}>{element.agentRate}</p> 
                           </div>
-                          <div>
-                         <label htmlFor="inputnumber">Vente:</label> 
-                         <input type="inputnumber" defaultValue={element.vente}/> 
+                          <div className="labelsCosts">
+                         <label  htmlFor="inputnumber">Vente:</label> 
+                         <p type="inputnumber" defaultValue={element.vente}>{element.vente}</p> 
                           </div>
-                          <div>
-                         <label htmlFor="inputnumber">Fassa:</label> 
-                         <input type="inputnumber" defaultValue={element.fassa}/> 
+                          <div className="labelsCosts">
+                         <label  htmlFor="inputnumber">Fassa:</label> 
+                         <p type="inputnumber" defaultValue={element.fassa}>{element.fassa}</p> 
                           </div>
                             
+                          </div>
                           </div>
                       </div>
                     </div>
@@ -211,9 +211,19 @@ export default function ListShipments() {
                   <div className="checklist">
                     {selectedId && checklists[selectedId] && (
                       <>
+                        <div className="step"> 
+                        <label>Dossier Exploitation N°:</label>
+                        <input
+                           type="text"
+                           value={checklists[selectedId].ExploitNumber}
+                           onChange={(e) =>
+                             handleChecklistChange(e, "ExploitNumber")
+                           }>
+                        </input>
+                        </div>
                         <div className="step">
                           <label>Date d'Enlèvement:</label>
-                          <input
+                          <input 
                             type="date"
                             value={checklists[selectedId].pickupDate}
                             onChange={(e) =>
@@ -393,18 +403,19 @@ export default function ListShipments() {
                         {/* Répétez les blocs ci-dessus pour les autres champs de la checklist */}
                       </>
                     )}
-                    <div className="containersave">
+                    
+                  </div>
+                  <div className="containersave">
                       <div className="saveButton">
                         <button>Sauvegarder</button>
                       </div>
                     </div>
-                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

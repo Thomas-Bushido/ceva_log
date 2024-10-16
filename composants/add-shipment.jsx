@@ -32,11 +32,13 @@ export default function CreateShipment() {
   const [ButtonSubmit, setButtonSubmit] = useState("button visible");
   const [buttonYes, setButtonYes] = useState("button hidden");
   const [buttonNo, setButtonNo] = useState("button hidden");
+  const [shipDiv, setShipDiv] = useState("div hidden");
+  const [shipNumber, setShipNumber] = useState("");
 
   const TaxableWeigth = () => {
     const calculTax = (length * width * height) / 6000;
     if (grossWeight > calculTax) {
-      setWeight(Number(grossWeight.toFixed(1)));  // Convertir en nombre après toFixed()
+      setWeight(Number(grossWeight.toFixed(1))); // Convertir en nombre après toFixed()
     } else {
       setWeight(Number(calculTax.toFixed(1)));
     }
@@ -44,23 +46,47 @@ export default function CreateShipment() {
 
   const CostFreightCalculation = () => {
     const freightcost = freightRate * weight;
-    setTotalFreightCost(Number(freightcost.toFixed(1)));  // Convertir en nombre après toFixed()
+    setTotalFreightCost(Number(freightcost.toFixed(1))); // Convertir en nombre après toFixed()
   };
-  
+
   const FassaCalculation = () => {
-    const totalCosts = 
+    const totalCosts =
       (parseFloat(pickup) || 0) +
       (parseFloat(customClearance) || 0) +
       (parseFloat(handling) || 0) +
       (parseFloat(secu) || 0) +
       (parseFloat(totalFreightCost) || 0) +
       (parseFloat(agentRate) || 0);
-    
+
     const totalFassa = (parseFloat(vente) || 0) - totalCosts;
-    setFassa(Number(totalFassa.toFixed(1)));  // Convertir en nombre après toFixed()
+    setFassa(Number(totalFassa.toFixed(1))); // Convertir en nombre après toFixed()
+  };
+
+  const generateRandomReference = () => {
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const numbers = "0123456789";
+    // Génère 3 lettres aléatoires
+    let randomLetters = "";
+    for (let i = 0; i < 3; i++) {
+      randomLetters += letters.charAt(
+        Math.floor(Math.random() * letters.length)
+      );
+    }
+
+    // Génère 3 chiffres aléatoires
+    let randomNumbers = "";
+    for (let i = 0; i < 3; i++) {
+      randomNumbers += numbers.charAt(
+        Math.floor(Math.random() * numbers.length)
+      );
+    }
+
+    // Combine les lettres et les chiffres
+    setShipNumber(randomLetters + randomNumbers);
   };
 
   const handleValidation = (e) => {
+    generateRandomReference()
     setButtonIsClicked("button visible");
     setButtonSubmit("button hidden");
     setButtonYes("button visible");
@@ -76,30 +102,39 @@ export default function CreateShipment() {
   };
 
   const handleSubmit = async (event) => {
+    setShipDiv("div visible");
+    
     console.log("success");
-    setTTypeFile("");
-    setCustomerName("");
-    setDeparture("");
-    setArrival("");
-    setNature("");
-    setGrossWeight(0);
-    setWeight(0);
-    setLength(0);
-    setWidth(0);
-    setHeight(0);
-    setFreightRate(0);
-    setTotalFreightCost(0);
-    setPickup(0);
-    setHandling(0);
-    setSecu(0);
-    setIncoterm("");
-    setCustomClearance(0);
-    setAgentRate(0);
-    setFlagSubmit("");
-    setResult("");
-    setFassa(0);
-    setVente(0);
-    setNote("");
+    console.log(shipNumber);
+
+    setTimeout(() => {
+      setShipDiv("div hidden");
+      setTTypeFile("");
+      setCustomerName("");
+      setDeparture("");
+      setArrival("");
+      setNature("");
+      setGrossWeight(0);
+      setWeight(0);
+      setLength(0);
+      setWidth(0);
+      setHeight(0);
+      setFreightRate(0);
+      setTotalFreightCost(0);
+      setPickup(0);
+      setHandling(0);
+      setSecu(0);
+      setIncoterm("");
+      setCustomClearance(0);
+      setAgentRate(0);
+      setFlagSubmit("");
+      setResult("");
+      setFassa(0);
+      setVente(0);
+      setNote("");
+      setShipNumber("");
+    }, 3000);
+
     await postData();
   };
   const postData = async () => {
@@ -127,6 +162,7 @@ export default function CreateShipment() {
         vente: vente,
         note: note,
         fassa: fassa,
+        shipNumber: shipNumber,
       })
     );
     const response = await fetch("/api/expeditions", {
@@ -157,6 +193,7 @@ export default function CreateShipment() {
         vente: vente,
         note: note,
         fassa: fassa,
+        shipNumber: shipNumber,
       }),
     });
     const result = await response.json();
@@ -187,7 +224,8 @@ export default function CreateShipment() {
         flagSubmit,
         result,
         vente,
-        fassa
+        fassa,
+        shipNumber
       )
     );
   }, [
@@ -211,6 +249,7 @@ export default function CreateShipment() {
     result,
     vente,
     fassa,
+    shipNumber
   ]);
 
   return (
@@ -224,10 +263,14 @@ export default function CreateShipment() {
           <div className="FeesContainer">
             <label>type de dossier:</label>
           </div>
-          <div style={{ paddingBottom: "18px", display:"flex", justifyContent:"center" }}>
-            <select
-              onChange={(e) => setTTypeFile(e.target.value)}
-            >
+          <div
+            style={{
+              paddingBottom: "18px",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <select onChange={(e) => setTTypeFile(e.target.value)}>
               <option value="">Sélectionnez un type</option>
               <option
                 style={{ border: "1px solid black" }}
@@ -269,7 +312,13 @@ export default function CreateShipment() {
           <div className="FeesContainer">
             <label>Nom du client:</label>
           </div>
-          <div style={{ paddingBottom: "18px", display:"flex", justifyContent:"center" }}>
+          <div
+            style={{
+              paddingBottom: "18px",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
             <input
               style={{ border: "1px solid black" }}
               type="text"
@@ -281,7 +330,13 @@ export default function CreateShipment() {
           <div className="FeesContainer">
             <label>Incoterm:</label>
           </div>
-          <div style={{ paddingBottom: "18px", display:"flex", justifyContent:"center" }}>
+          <div
+            style={{
+              paddingBottom: "18px",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
             <input
               style={{ border: "1px solid black" }}
               type="text"
@@ -293,7 +348,13 @@ export default function CreateShipment() {
           <div className="FeesContainer">
             <label>Aéroport de départ:</label>
           </div>
-          <div style={{ paddingBottom: "18px", display:"flex", justifyContent:"center" }}>
+          <div
+            style={{
+              paddingBottom: "18px",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
             <input
               style={{ border: "1px solid black" }}
               type="text"
@@ -305,7 +366,13 @@ export default function CreateShipment() {
           <div className="FeesContainer">
             <label>Aéroport d'arrivée:</label>
           </div>
-          <div style={{ paddingBottom: "18px", display:"flex", justifyContent:"center" }}>
+          <div
+            style={{
+              paddingBottom: "18px",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
             <input
               style={{ border: "1px solid black" }}
               type="text"
@@ -317,7 +384,13 @@ export default function CreateShipment() {
           <div className="FeesContainer">
             <label>Nature de marchandise:</label>
           </div>
-          <div style={{ paddingBottom: "18px", display:"flex", justifyContent:"center" }}>
+          <div
+            style={{
+              paddingBottom: "18px",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
             <input
               style={{ border: "1px solid black" }}
               type="text"
@@ -329,7 +402,7 @@ export default function CreateShipment() {
           <div className="FeesContainer">
             <label>Dimensions:</label>
           </div>
-          <div className="DimensionContainer" style={{ paddingBottom: "30px"}}>
+          <div className="DimensionContainer" style={{ paddingBottom: "30px" }}>
             <input
               style={{ border: "1px solid black" }}
               type="number"
@@ -374,7 +447,7 @@ export default function CreateShipment() {
             <label>Enlèvement: </label>
           </div>
           <input
-            style={{ border: "1px solid black", width:"40%" }}
+            style={{ border: "1px solid black", width: "40%" }}
             type="number"
             placeholder="Pick up fees"
             value={pickup}
@@ -385,7 +458,7 @@ export default function CreateShipment() {
             <label>Frais douane: </label>
           </div>
           <input
-            style={{ border: "1px solid black", width:"40%" }}
+            style={{ border: "1px solid black", width: "40%" }}
             type="number"
             placeholder="Customs Fees"
             value={customClearance}
@@ -396,7 +469,7 @@ export default function CreateShipment() {
             <label>Handling: </label>
           </div>
           <input
-            style={{ border: "1px solid black", width:"40%" }}
+            style={{ border: "1px solid black", width: "40%" }}
             type="number"
             placeholder="Handling fees "
             value={handling}
@@ -407,7 +480,7 @@ export default function CreateShipment() {
             <label>Sécurisation: </label>
           </div>
           <input
-            style={{ border: "1px solid black", width:"40%" }}
+            style={{ border: "1px solid black", width: "40%" }}
             type="number"
             placeholder="Securization fees "
             value={secu}
@@ -418,19 +491,19 @@ export default function CreateShipment() {
             <label>Taux aérien: </label>
           </div>
           <input
-            style={{ border: "1px solid black", width:"40%" }}
+            style={{ border: "1px solid black", width: "40%" }}
             type="number"
             placeholder="Airfreight Rate"
             value={freightRate}
             onChange={(e) => setFreightRate(parseFloat(e.target.value))}
           />
-          <div>
+          <div className="Fret">
             <button
               type="number"
               className="ButtonTaxable"
               onClick={CostFreightCalculation}
             >
-              Calculer le cout du fret aérien{" "}
+              Calcul du taux{" "}
             </button>
             <div className="ResultatTaxable">{totalFreightCost} eur</div>
           </div>
@@ -438,7 +511,7 @@ export default function CreateShipment() {
             <label>Frais agent: </label>
           </div>
           <input
-            style={{ border: "1px solid black", width:"40%" }}
+            style={{ border: "1px solid black", width: "40%" }}
             type="number"
             placeholder="Agent total price"
             value={agentRate}
@@ -449,7 +522,7 @@ export default function CreateShipment() {
             <label>Vente: </label>
           </div>
           <input
-            style={{ border: "1px solid black", width:"40%" }}
+            style={{ border: "1px solid black", width: "40%" }}
             type="number"
             placeholder="Sell price"
             value={vente}
@@ -472,11 +545,9 @@ export default function CreateShipment() {
                 className="ButtonTaxable"
                 onClick={FassaCalculation}
               >
-                Calculer le Fassa
+                Marge nette
               </button>
-              <div className="ResultatTaxable">
-                {fassa} eur
-              </div>
+              <div className="ResultatTaxable">{fassa} eur</div>
             </div>
           </div>
         </div>
@@ -507,6 +578,7 @@ export default function CreateShipment() {
           )}
         </div>
       </div>
+      <div className={shipDiv}>Référence Commerce n°:{shipNumber}</div>
     </div>
   );
 }
