@@ -76,7 +76,7 @@ const handleClick = (ind) => {
         <div style={{ width: "350px" }}>
           {choix.map((lettre, ind) => {
             return (
-              <button
+              <button key={ind}
                 style={{
                   backgroundColor: "grey",
                   minWidth: "50px",
@@ -93,9 +93,9 @@ const handleClick = (ind) => {
         </div>
         <div style={{ width: "350px" }}>
           {tab.map((ligne) => {
-            return ligne.map((colonne) => {
+            return ligne.map((colonne, ind) => {
               return (
-                <button
+                <button key={ind}
                   style={{
                     backgroundColor: "blue",
                     minWidth: "50px",

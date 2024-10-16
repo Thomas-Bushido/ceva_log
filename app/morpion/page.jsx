@@ -86,10 +86,10 @@ export default function Morpion() {
         <div>
           {gameBoard.map((line, ligne) => {
             return (
-              <div>
+              <div key={ligne}>
                 {line.map((val, colonne) => {
                   return (
-                    <button
+                    <button key={colonne}
                       style={{
                         backgroundColor: "grey",
                         minWidth: "20px",
