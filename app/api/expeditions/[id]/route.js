@@ -27,9 +27,29 @@ const PUT = async (req, { params }) => {
         { $set: bodyData }
     );
     return new Response(JSON.stringify({ res: "Mise à jour réussie" }), { status: 200 });
+
+};
+// Nouvelle fonction DELETE pour supprimer une expédition par ID
+const DELETE = async (req, { params }) => {
+    const { id } = params; // Récupérer l'ID des paramètres de l'URL
+    const client = await clientPromise;
+    const db = client.db("Cevadata");
+
+    // Vérifier si l'expédition existe
+    const existingShipment = await db.collection("Expeditions").findOne({ _id: new ObjectId(id) });
+
+    if (!existingShipment) {
+        return new Response(JSON.stringify({ error: "Expédition non trouvée" }), { status: 404 });
+    }
+
+    // Supprimer l'expédition
+    await db.collection("Expeditions").deleteOne({ _id: new ObjectId(id) });
+
+    return new Response(JSON.stringify({ res: "Suppression réussie" }), { status: 200 });
 };
 
+export { PUT, DELETE };
 
 
 
-export { PUT };
+

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import CreateCustomerInvAccount from "../../composants/add-form";
+import CreateCustomerInvAccount from "../../composants/add-customer";
 import Navbar from "../../composants/navbar";
 
 export default function FormulaireClient() {

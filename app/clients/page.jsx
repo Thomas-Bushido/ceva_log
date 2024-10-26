@@ -1,6 +1,6 @@
 "use client"
 
-import List from "../../composants/read-dbconnect";
+import List from "../../composants/read-customer";
 import Navbar from "../../composants/navbar"; 
 import { relative } from "path";
 
